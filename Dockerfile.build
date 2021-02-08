@@ -3,7 +3,7 @@ FROM fopina/fluent-bit-plugin-dev:v1.6.10-1 as builder
 ADD . /myplugin
 
 RUN cmake -DFLB_SOURCE=/usr/src/fluentbit/fluent-bit-1.6.10/ \
-          -DPLUGIN_NAME=filter_math ../
+          -DPLUGIN_NAME=out_influxdb_v2 ../
 
 RUN make
 
@@ -11,4 +11,4 @@ RUN ls -la
 
 FROM scratch
 
-COPY --from=builder /myplugin/build/flb-filter_math.so /
+COPY --from=builder /myplugin/build/flb-out_influxdb_v2.so /
