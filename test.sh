@@ -10,8 +10,8 @@ function cleanup() {
 }
 
 docker run --rm \
-           -v $(pwd):/myplugin fopina/fluent-bit-plugin-dev:v1.6.10-1 \
-           sh -c "cmake -DFLB_SOURCE=/usr/src/fluentbit/fluent-bit-1.6.10/ \
+           -v $(pwd):/myplugin fopina/fluent-bit-plugin-dev:v1.7.0-0 \
+           sh -c "cmake -DFLB_SOURCE=/usr/src/fluentbit/fluent-bit-1.7.0/ \
                  -DPLUGIN_NAME=out_influxdb_v2 ../ && make"
 
 cleanup
@@ -37,7 +37,7 @@ docker exec test-fluent-plugin influx setup \
 docker run --rm \
            -v $(pwd)/build:/myplugin \
            --link test-fluent-plugin:influxdb \
-           fluent/fluent-bit:1.6.10 \
+           fluent/fluent-bit:1.7.0 \
            /fluent-bit/bin/fluent-bit -v \
            -f 1 \
            -e /myplugin/flb-out_influxdb_v2.so \
